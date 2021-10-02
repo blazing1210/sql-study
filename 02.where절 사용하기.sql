@@ -61,3 +61,19 @@ SELECT* FROM employees WHERE job_id LIKE '%MGR%' OR job_id LIKE '%ASST%';
 SELECT commission_pct FROM employees;
 SELECT*FROM employees WHERE commission_pct is NULL;
 SELECT*FROM employees WHERE commission_pct is not NULL;
+--ORDER BY 열 +ASC or DESC 열의 오름차순 내림차순 정렬
+SELECT*FROM employees ORDER BY employee_id DESC;
+SELECT*FROM employees ORDER BY employee_id ASC;
+SELECT department_id, employee_id,first_name,last_name FROM employees ORDER BY department_id,employee_id;
+SELECT department_id, last_name, salary*12 연봉
+FROM employees ORDER BY 연봉 DESC;
+--예제 1,2,3
+SELECT employee_id,first_name,last_name
+FROM employees ORDER BY employee_id desc;
+SELECT *
+FROM employees WHERE job_id LIKE '%CLERK%' ORDER BY salary;
+
+SELECT employee_id 직원번호,first_name 직원이름,department_id 부서번호, salary 월급
+FROM employees
+WHERE employee_id BETWEEN 120 AND 150 
+ORDER BY department_id desc,salary desc;
