@@ -126,7 +126,7 @@ select deptno,ename,sal
 from emp
 order by deptno desc, ename asc;
 
-select ename,sal,ROUND(sal*1.13) BONUS,deptno
+select ename,sal,ROUND(sal*0.13) BONUS,deptno
 from emp
 where deptno=10;
 
@@ -148,16 +148,29 @@ having count(e.empno)>5;
 
 select job,sum(sal) 급여합계
 from emp
-where job!='SALESMAN'
+where job !='SALESMAN'
 group by job
 having sum(sal)>5000;
 
-select empno,ename,sal,grade,losal
+select e.empno,e.ename,e.sal,s.grade
 from emp e
 join salgrade s
-    on sal between losal and hisal;
+    on e.sal between s.losal and s.hisal;
 
 select deptno,count(ename)사원수,count(comm) "커미션 받은 사원수"
 from emp
 group by deptno;
 
+select ename,deptno,decode(deptno,10,'총무부',
+                                  20,'개발부',
+                                  30,'영업부') 부서명
+from emp;
+
+select ename, deptno,
+case deptno
+        when 10 then '총무부'
+        when 20 then '개발부'
+        when 30 then '영업부'
+         else 'deptno' end "부서명"
+from emp;
+        
