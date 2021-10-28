@@ -39,3 +39,37 @@ select * from members where last_name like 'A%' and first_name like 'M%' ;
 explain plan for
 select * from members where last_name like 'A%' and first_name like 'M%';
 select * from table(DBMS_XPLAN.DISPLAY());
+
+CREATE SEQUENCE 시퀸스1;
+DROP SEQUENCE 시퀸스1;
+
+SELECT * FROM USER_SEQUENCES WHERE SEQUENCE_NAME='시퀸스1';
+SELECT 시퀸스1.NEXTVAL FROM DUAL;
+
+CREATE TABLE 부서_테스트 (
+    부서번호 NUMBER PRIMARY KEY,
+    부서이름 VARCHAR2(100)
+);
+INSERT INTO 부서_테스트 (부서번호,부서이름) VALUES(시퀸스1.NEXTVAL,'영업부');
+INSERT INTO 부서_테스트 (부서번호,부서이름) VALUES(시퀸스1.NEXTVAL,'개발부');
+SELECT * FROM 부서_테스트;
+
+---시퀸스의 값은 증가시키지 않고 현재 값을 알고 싶을때 (이름.CURRVAL)
+SELECT 시퀸스1.CURRVAL FROM DUAL;
+
+--시퀀스 옵션 시작값을 10부터 증가는 20
+DROP SEQUENCE 시퀀스2;
+CREATE SEQUENCE 시퀀스2
+START WITH 10
+INCREMENT BY 20;
+INSERT INTO 부서_테스트 (부서번호,부서이름) VALUES(시퀀스2.NEXTVAL,'마켓팅부');
+INSERT INTO 부서_테스트 (부서번호,부서이름) VALUES(시퀀스2.NEXTVAL,'교육부');
+INSERT INTO 부서_테스트 (부서번호,부서이름) VALUES(시퀀스2.NEXTVAL,'경영부');
+SELECT* FROM 부서_테스트;
+
+UPDATE 부서_테스트 SET 부서번호=시퀀스2.NEXTVAL;
+
+--시퀀스2의 증가값을 2로 수정해보자
+
+ALTER SEQUENCE 시퀀스2
+increment by 2;
